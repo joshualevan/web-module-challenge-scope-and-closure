@@ -84,17 +84,30 @@ Use the finalScore function below to do the following:
 }
 */
 
-function finalScore(inning, num) {
-    /*Code Here*/
+function finalScore(func, num) {
+    let scoreBoard = {
+        "Home": 0,
+        "Away": 0
+    };
+    for (let i = 0; i <= num; i++) {
+        scoreBoard.Home += func();
+    }
+    for (let j = 0; j <= num; j++) {
+        scoreBoard.Away += func();
+    }
+
+    return scoreBoard;
 }
+
+console.log(finalScore(inning, 8));
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore( /*Your Code Here */ ) {
-    /*Your Code Here */
+function getInningScore(func) {
+    return
 }
 
 
