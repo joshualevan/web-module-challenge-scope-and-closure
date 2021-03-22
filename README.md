@@ -65,8 +65,13 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+The anonymous function inside or personalDice
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+It would change.
+
 c. What is the lexical scope of `newRoll`?
+The resources of its parents' scope.
 
 ### Task 3 - Stretch Goals
 
