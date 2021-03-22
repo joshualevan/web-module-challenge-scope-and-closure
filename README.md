@@ -65,7 +65,7 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
-The anonymous function inside or personalDice
+The anonymous function inside of personalDice is being returned.
 
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
 It would change.

@@ -28,7 +28,7 @@ console.log(processFirstItem(['foo', 'bar'], function(str) { return str + str })
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
-    => Counter 1 is a function which returns a function and when invoked, the counter will hold its count after every invocation. Counter 2 will reset after every invocation due to the counter's global scope. 
+    => Counter 1 is a function which returns a function (using closure) and when invoked, the counter will hold its count after every invocation. Counter 2 will reset after every invocation due to the counter's global scope. 
   
   2. Which of the two uses a closure? How can you tell?
     => Counter 1. It is a combination of bundled functions with it's own lexical environment (internal scope).
@@ -95,12 +95,7 @@ function finalScore(inning, num) {
     for (let i = 1; i <= num; i++) {
         Home += inning();
         Away += inning();
-        scoreboard.push(`Inning${i}: Away ${Away} - Home ${Home}`);
     }
-
-
-
-
     return score;
 }
 
@@ -111,11 +106,11 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(finalScore, inning, num) {
-    let scoreboard = [];
-    finalScore(inning, num);
-
+function getInningScore(callback) {
+    return { Home: callback(), Away: callback() }
 }
+
+// const getInningScore2 = callback => { Home: callback(), Away: callback() };
 
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
@@ -159,11 +154,32 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(scoreFunc, inningFunc, numOfInnings) {
+function scoreboard(callGetInningScore, callInnings, num) {
 
+    let scoreboard = [];
+    let finalHomeScore;
+    let finalAwayScore;
 
+    for (let i = 1; i <= num; i++) {
+        let homeInning = callGetInningScore(callInnings).Home;
+        let awayInning = callGetInningScore(callInnings).Away;
+
+        finalHomeScore += homeInning;
+        finalAwayScore = +awayInning;
+
+        let outcome = `Inning: ${i}: Away ${homeInning} - Home ${awayInning}`;
+        scoreboard.push(outcome);
+    }
+    if (finalHomeScore !== finalAwayScore) {
+        scoreboard.push(`Final Score: Away ${finalAwayScore} - Home ${finalHomeScore}`);
+    } else {
+        scoreboard.push(`This game is tied at ${finalHomeScore} and will need extra innings`);
+    }
+
+    return scoreboard;
 }
 
+console.log(scoreboard(getInningScore, inning, 9));
 
 
 
